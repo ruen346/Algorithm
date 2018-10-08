@@ -34,14 +34,35 @@ void search(int cut1, int cut2)
 		}
 		else
 		{
-			cout << "(" << num[cut1].x << "," << num[cut1].y << ")(" << num[cut2].x << "," << num[cut2].y << ") : " << peta1 << endl;
+			float peta1 = sqrt((abs(num[cut1].x - num[cut1 + 1].x) * abs(num[cut1].x - num[cut1 + 1].x)) + (abs(num[cut1].y - num[cut1 + 1].y) * abs(num[cut1].y - num[cut1 + 1].y)));
+			float peta2 = sqrt((abs(num[cut1].x - num[cut1 + 2].x) * abs(num[cut1].x - num[cut1 + 2].x)) + (abs(num[cut1].y - num[cut1 + 2].y) * abs(num[cut1].y - num[cut1 + 2].y)));
+			float peta3 = sqrt((abs(num[cut1 + 1].x - num[cut1 + 2].x) * abs(num[cut1 + 1].x - num[cut1 + 2].x)) + (abs(num[cut1 + 1].y - num[cut1 + 2].y) * abs(num[cut1 + 1].y - num[cut1 + 2].y)));
+
+			int a, b;
+			if (peta1 > peta2 && peta1 > peta3)
+			{
+				a = cut1;
+				b = cut1+1;
+			}
+			else if (peta2 > peta1 && peta2 > peta3)
+			{
+				a = cut1;
+				b = cut1 + 2;
+			}
+			else
+			{
+				a = cut1 + 1;
+				b = cut1 + 2;
+			}
+
+			cout << "(" << num[a].x << "," << num[a].y << ")(" << num[b].x << "," << num[b].y << ") : " << peta1 << endl;
 			if (find_far > peta1)
 			{
 				find_far = peta1;
-				find_x[0] = num[cut1].x;
-				find_y[0] = num[cut1].y;
-				find_x[1] = num[cut2].x;
-				find_y[1] = num[cut2].y;
+				find_x[0] = num[a].x;
+				find_y[0] = num[a].y;
+				find_x[1] = num[b].x;
+				find_y[1] = num[b].y;
 			}
 		}
 	}
@@ -49,6 +70,18 @@ void search(int cut1, int cut2)
 	{
 		search(cut1, cut1 + cho / 2);
 		search(cut1 + cho / 2 + 1, cut2);
+		int a = cut1 + cho / 2;
+		int b = cut1 + cho / 2 + 1;
+		float peta1 = sqrt((abs(num[a].x - num[b].x) * abs(num[a].x - num[b].x)) + (abs(num[a].y - num[b].y) * abs(num[a].y - num[b].y)));
+		cout << "Áß¾Ó (" << num[a].x << "," << num[a].y << ")(" << num[b].x << "," << num[b].y << ") : " << peta1 << endl;
+		if (find_far > peta1)
+		{
+			find_far = peta1;
+			find_x[0] = num[a].x;
+			find_y[0] = num[a].y;
+			find_x[1] = num[b].x;
+			find_y[1] = num[b].y;
+		}
 	}
 }
 
