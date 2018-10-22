@@ -18,16 +18,16 @@
     <ClCompile Include="선택문제알고리즘.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="이진트리.cpp">
+    <ClCompile Include="소스.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="빨검.cpp">
+    <ClCompile Include="소스3.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="알고리즘 과제1.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="거스름돈.cpp">
+    <ClCompile Include="이진트리.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>

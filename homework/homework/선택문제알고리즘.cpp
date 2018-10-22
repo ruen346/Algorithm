@@ -42,7 +42,6 @@ void quicksort(int num[], int left, int right, int choose)
 			quicksort(num, left, j, choose);
 		else
 			quicksort(num, j, right, choose - j);
-
 	}
 }
 

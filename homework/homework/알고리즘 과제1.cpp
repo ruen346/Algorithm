@@ -1,4 +1,4 @@
-#include <iostream>
+﻿#include <iostream>
 #include <math.h>
 using namespace std;
 
@@ -16,7 +16,7 @@ float find_far = 5000;
 
 void search(int cut1, int cut2)
 {
-	int cho = cut2 - cut1;
+	int cho = cut2 - cut1 + 1;
 	if (cho <= 3)
 	{
 		float peta1 = sqrt((abs(num[cut1].x - num[cut2].x) * abs(num[cut1].x - num[cut2].x)) + (abs(num[cut1].y - num[cut2].y) * abs(num[cut1].y - num[cut2].y)));
@@ -34,31 +34,35 @@ void search(int cut1, int cut2)
 		}
 		else
 		{
+			float want = 0;
 			float peta1 = sqrt((abs(num[cut1].x - num[cut1 + 1].x) * abs(num[cut1].x - num[cut1 + 1].x)) + (abs(num[cut1].y - num[cut1 + 1].y) * abs(num[cut1].y - num[cut1 + 1].y)));
 			float peta2 = sqrt((abs(num[cut1].x - num[cut1 + 2].x) * abs(num[cut1].x - num[cut1 + 2].x)) + (abs(num[cut1].y - num[cut1 + 2].y) * abs(num[cut1].y - num[cut1 + 2].y)));
 			float peta3 = sqrt((abs(num[cut1 + 1].x - num[cut1 + 2].x) * abs(num[cut1 + 1].x - num[cut1 + 2].x)) + (abs(num[cut1 + 1].y - num[cut1 + 2].y) * abs(num[cut1 + 1].y - num[cut1 + 2].y)));
 
 			int a, b;
-			if (peta1 > peta2 && peta1 > peta3)
+			if (peta1 < peta2 && peta1 < peta3)
 			{
 				a = cut1;
-				b = cut1+1;
+				b = cut1 + 1;
+				want = peta1;
 			}
-			else if (peta2 > peta1 && peta2 > peta3)
+			else if (peta2 < peta1 && peta2 < peta3)
 			{
 				a = cut1;
 				b = cut1 + 2;
+				want = peta2;
 			}
 			else
 			{
 				a = cut1 + 1;
 				b = cut1 + 2;
+				want = peta3;
 			}
 
-			cout << "(" << num[a].x << "," << num[a].y << ")(" << num[b].x << "," << num[b].y << ") : " << peta1 << endl;
-			if (find_far > peta1)
+			cout << "(" << num[a].x << "," << num[a].y << ")(" << num[b].x << "," << num[b].y << ") : " << want << endl;
+			if (find_far > want)
 			{
-				find_far = peta1;
+				find_far = want;
 				find_x[0] = num[a].x;
 				find_y[0] = num[a].y;
 				find_x[1] = num[b].x;
@@ -68,12 +72,12 @@ void search(int cut1, int cut2)
 	}
 	else
 	{
-		search(cut1, cut1 + cho / 2);
-		search(cut1 + cho / 2 + 1, cut2);
-		int a = cut1 + cho / 2;
-		int b = cut1 + cho / 2 + 1;
+		search(cut1, cut1 + cho / 2 );
+		search(cut1 + cho / 2 +1 , cut2);
+		int a = cut1 + cho / 2 ;
+		int b = cut1 + cho / 2 +1;
 		float peta1 = sqrt((abs(num[a].x - num[b].x) * abs(num[a].x - num[b].x)) + (abs(num[a].y - num[b].y) * abs(num[a].y - num[b].y)));
-		cout << "�߾� (" << num[a].x << "," << num[a].y << ")(" << num[b].x << "," << num[b].y << ") : " << peta1 << endl;
+		cout << "중간영역 (" << num[a].x << "," << num[a].y << ")(" << num[b].x << "," << num[b].y << ") : " << peta1 << endl;
 		if (find_far > peta1)
 		{
 			find_far = peta1;
@@ -97,9 +101,7 @@ int main()
 				save = num[j].x;
 				num[j].x = num[j - 1].x;
 				num[j - 1].x = save;
-			}
-			if (num[j - 1].y > num[j].y)
-			{
+
 				save = num[j].y;
 				num[j].y = num[j - 1].y;
 				num[j - 1].y = save;
@@ -107,9 +109,9 @@ int main()
 		}
 	}
 
-	search(0,29);
+	search(0, 29);
 
-	cout << endl << "�ִܰŸ� = (" << find_x[0] << "," << find_y[0] << ")(" << find_x[1] << "," << find_y[1] << ") : " << find_far << endl;
+	cout << endl << "최단거리 = (" << find_x[0] << "," << find_y[0] << ")(" << find_x[1] << "," << find_y[1] << ") : " << find_far << endl;
 
 	return 0;
 }
